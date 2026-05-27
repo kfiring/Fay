@@ -38,7 +38,7 @@ RUN apt-get update && \
 
 # copy codes to /fay
 WORKDIR /fay
-COPY ./* /fay/
+COPY . /fay/
 
 # install dependencies inside virtual environment
 RUN pip install --no-cache-dir -r requirements.txt
