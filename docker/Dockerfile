@@ -31,6 +31,11 @@ RUN python3 -m venv /opt/venv && \
 
 ENV PATH="/opt/venv/bin:$PATH"
 
+# install some dependencies for building packages
+RUN apt-get update && \
+    apt-get install -y portaudio19-dev && \
+    apt-get clean
+
 # copy codes to /fay
 WORKDIR /fay
 COPY ./* /fay/
