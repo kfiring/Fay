@@ -43,5 +43,10 @@ COPY . /fay/
 # install dependencies inside virtual environment
 RUN pip install --no-cache-dir -r requirements.txt
 
+# install some running dependencies
+RUN apt-get update && \
+    apt-get install -y ffmpeg libglib2.0-0 && \
+    apt-get clean
+
 # set entrypoint
 ENTRYPOINT ["python", "main.py", "start"]
