@@ -36,12 +36,14 @@ RUN apt-get update && \
     apt-get install -y portaudio19-dev && \
     apt-get clean
 
-# copy codes to /fay
 WORKDIR /fay
-COPY . /fay/
-
-# install dependencies inside virtual environment
+# install dependencies inside virtual environment first, then copy codes, because this installation step
+# is very time-consuming, we want to cache it as much as possible, and the codes are changing more frequently than dependencies
+COPY requirements.txt /fay/
 RUN pip install --no-cache-dir -r requirements.txt
+
+# copy codes to /fay
+COPY . /fay/
 
 # install some running dependencies
 RUN apt-get update && \

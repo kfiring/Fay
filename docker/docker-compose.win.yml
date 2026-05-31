@@ -1,7 +1,7 @@
 # according to https://stackoverflow.com/questions/68310978/playing-sound-in-docker-container-on-wsl-in-windows-11
 # on windows, to anble host sound device access from docker container,
 # we must first install pulseaudio which can be downloaded from https://github.com/pgaskin/pulseaudio-win32/releases,
-# then find 'load-module module-native-protocol-tcp' line in configuration file (default path: etc\pulse\default.pa), 
+# then find 'load-module module-native-protocol-tcp' line in configuration file (default path: <install_path>\etc\pulse\default.pa), 
 # uncomment it and change it to 'load-module module-native-protocol-tcp auth-anonymous=1', finally restart pulseaudio service.
 # after that, we can run this docker-compose.yml in WSL to start fay in a container.
 services:

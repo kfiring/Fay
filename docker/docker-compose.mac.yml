@@ -1,0 +1,26 @@
+# like docker-compose.win.yml,
+# on mac, to anble host sound device access from docker container,
+# we must first install pulseaudio (brew install pulseaudio), 
+# then find 'load-module module-native-protocol-tcp' line in configuration file (default path: /opt/homebrew/etc/pulse/default.pa),
+# uncomment it and change it to 'load-module module-native-protocol-tcp auth-anonymous=1', finally restart pulseaudio service (brew services restart pulseaudio).
+# after that, we can run this docker-compose.yml in WSL to start fay in a container.
+services:
+  fay:
+    container_name: fay
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    image: gongjiang/fay
+    ports:
+      - "35000:5000"
+      - "35010:5010"
+      - "30001:10001"
+      - "30002:10002"
+      - "30003:10003"
+      - "39001:9001"
+      - "38765:8765"
+    volumes:
+      - ~/.config/pulse:/home/pulseaudio/.config/pulse
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PULSE_SERVER=docker.for.mac.localhost
